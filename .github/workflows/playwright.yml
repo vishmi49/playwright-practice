@@ -10,10 +10,9 @@ on:
         type: choice
         description: Which browser to test
         required: true
-        default: chromium
         options:
-          - firefox
           - chromium
+          - firefox
           - webkit
 
 jobs:
@@ -30,7 +29,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test --project ${{ github.event.inputs.browser }}
+        run: npx playwright test --project ${{ github.event.inputs.browser || 'chromium' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
